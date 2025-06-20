@@ -17,6 +17,13 @@ public class StudentQuery {
     public static final String FIND_STUDENT_BY_FIRSTNAME = """
         SELECT * FROM TESA_IBMOHAMMED_STUDENT WHERE studentFirstName = :studentFirstName""";
 
+    public static final String SEARCH_STUDENT = """
+        SELECT * FROM TESA_IBMOHAMMED_STUDENT 
+        WHERE studentFirstName LIKE :query
+              OR studentLastName  LIKE :query
+              OR studentStateOfOrigin LIKE :query
+        """;
+
     public static final String UPDATE_STUDENT = """
         UPDATE TESA_IBMOHAMMED_STUDENT
         SET studentFirstName = :studentFirstName,
@@ -31,4 +38,6 @@ public class StudentQuery {
 
     public static final String EXISTS_BY_ID = """
         SELECT COUNT(*) FROM TESA_IBMOHAMMED_STUDENT WHERE studentId = :studentId""";
+
+    
 }

@@ -11,6 +11,7 @@ public interface StudentRepository {
     List<Student> findAllStudent();
     Optional<Student> findStudentById(int id);
     List<Student> findStudentByFirstName(String firstName);
+    List<Student> studentSearch(String query);
     void updateStudent(Student student);
     void deleteStudentById(int id);
     boolean existsById(int id);

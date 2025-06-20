@@ -83,6 +83,15 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Student> searchStudent(String query) {
+        try {
+            return studentRepository.studentSearch(query);
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Failed to get student: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
     public StudentResponse updateStudent(int id, StudentRequest request) {
         try {
             Student existingStudent = studentRepository.findStudentById(id)

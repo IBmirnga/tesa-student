@@ -60,6 +60,14 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
+    public List<Student> studentSearch(String query) {
+        return jdbcTemplate.query(
+                StudentQuery.SEARCH_STUDENT,
+                new MapSqlParameterSource("query", "%" + query + "%"),
+                new BeanPropertyRowMapper<>(Student.class));
+    }
+
+    @Override
     public void updateStudent(Student student) {
         MapSqlParameterSource params = new MapSqlParameterSource()
                 .addValue("studentId", student.getStudentId())
