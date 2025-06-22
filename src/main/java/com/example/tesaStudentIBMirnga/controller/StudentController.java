@@ -2,6 +2,7 @@ package com.example.tesaStudentIBMirnga.controller;
 
 import com.example.tesaStudentIBMirnga.model.entity.Student;
 import com.example.tesaStudentIBMirnga.model.request.StudentRequest;
+import com.example.tesaStudentIBMirnga.model.response.StudentResponse;
 import com.example.tesaStudentIBMirnga.service.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,15 +24,21 @@ public class StudentController {
     }
 
     @PostMapping("/create-student")
-    public ResponseEntity<String> createStudent(@RequestBody StudentRequest request) {
-        try {
-            studentService.createStudent(request);
-            return ResponseEntity.ok().body("Student created successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error creating student: " + e.getMessage());
-        }
+    public ResponseEntity<StudentResponse> createStudent(@RequestBody StudentRequest request) {
+            StudentResponse response = studentService.createStudent(request);
+            return ResponseEntity.ok().body(response);
+
     }
+
+//    public ResponseEntity<String> createStudent(@RequestBody StudentRequest request) {
+//        try {
+//            studentService.createStudent(request);
+//            return ResponseEntity.ok().body("Student created successfully");
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body("Error creating student: " + e.getMessage());
+//        }
+//    }
 
     @GetMapping("/all-students")
     public ResponseEntity<?> getAllStudents() {
@@ -70,30 +77,42 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateStudent(@PathVariable int id, @RequestBody StudentRequest request) {
-        try {
-            studentService.updateStudent(id, request);
-            return ResponseEntity.ok().body("Student updated successfully");
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error updating student: " + e.getMessage());
-        }
+    public ResponseEntity<StudentResponse> updateStudent(@PathVariable int id, @RequestBody StudentRequest request) {
+
+        StudentResponse response = studentService.updateStudent(id, request);
+        return ResponseEntity.ok().body(response);
     }
 
+//    public ResponseEntity<?> updateStudent(@PathVariable int id, @RequestBody StudentRequest request) {
+//        try {
+//            studentService.updateStudent(id, request);
+//            return ResponseEntity.ok().body("Student updated successfully");
+//        } catch (NoSuchElementException e) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                    .body(e.getMessage());
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body("Error updating student: " + e.getMessage());
+//        }
+//    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteStudent(@PathVariable int id) {
-        try {
-            studentService.deleteStudent(id);
-            return ResponseEntity.ok().body("Student deleted successfully");
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error deleting student: " + e.getMessage());
-        }
+    public ResponseEntity<StudentResponse> deleteStudent(@PathVariable int id) {
+
+        StudentResponse response =  studentService.deleteStudent(id);
+        return ResponseEntity.ok().body(response);
     }
+
+//    public ResponseEntity<?> deleteStudent(@PathVariable int id) {
+//        try {
+//            studentService.deleteStudent(id);
+//            return ResponseEntity.ok().body("Student deleted successfully");
+//        } catch (NoSuchElementException e) {
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+//                    .body(e.getMessage());
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body("Error deleting student: " + e.getMessage());
+//        }
+//    }
 }

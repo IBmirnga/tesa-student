@@ -39,8 +39,8 @@ public class StudentServiceImpl implements StudentService {
             studentRepository.createStudent(student);
 
             return StudentResponse.builder()
-                    .responseCode(StudentUtils.STUDENT_CREATION_SUCCESS)
-                    .responseMessage(StudentUtils.STUDENT_CREATION_MESSAGE)
+                    .responseCode(StudentUtils.SUCCESS)
+                    .responseMessage(StudentUtils.SUCCESS_MESSAGE)
                     .request(StudentRequest.builder()
                             .studentFirstName(request.getStudentFirstName())
                             .studentLastName(request.getStudentLastName())
@@ -50,7 +50,11 @@ public class StudentServiceImpl implements StudentService {
                             .build())
                     .build();
         } catch (DataAccessException e) {
-            throw new RuntimeException("Failed to create student: " + e.getMessage(), e);
+            //throw new RuntimeException("Failed to create student: " + e.getMessage(), e);
+            return StudentResponse.builder()
+                    .responseCode(StudentUtils.ERROR)
+                    .responseMessage(StudentUtils.ERROR_MESSAGE)
+                    .build();
         }
     }
 
@@ -93,8 +97,8 @@ public class StudentServiceImpl implements StudentService {
             studentRepository.updateStudent(updatedStudent);
 
             return StudentResponse.builder()
-                    .responseCode(StudentUtils.STUDENT_UPDATED_SUCCESS)
-                    .responseMessage(StudentUtils.STUDENT_UPDATED_MESSAGE)
+                    .responseCode(StudentUtils.SUCCESS)
+                    .responseMessage(StudentUtils.SUCCESS_MESSAGE)
                     .request(StudentRequest.builder()
                             .studentFirstName(request.getStudentFirstName())
                             .studentLastName(request.getStudentLastName())
@@ -104,7 +108,11 @@ public class StudentServiceImpl implements StudentService {
                             .build())
                     .build();
         } catch (DataAccessException e) {
-            throw new RuntimeException("Failed to update student: " + e.getMessage(), e);
+            //throw new RuntimeException("Failed to update student: " + e.getMessage(), e);
+            return StudentResponse.builder()
+                    .responseCode(StudentUtils.ERROR)
+                    .responseMessage(StudentUtils.ERROR_MESSAGE)
+                    .build();
         }
     }
 
@@ -117,12 +125,15 @@ public class StudentServiceImpl implements StudentService {
             studentRepository.deleteStudentById(id);
 
             return StudentResponse.builder()
-                    .responseCode(StudentUtils.STUDENT_DELETED_SUCCESS)
-                    .responseMessage(StudentUtils.STUDENT_DELETED_MESSAGE)
-                    .request(null)
+                    .responseCode(StudentUtils.SUCCESS)
+                    .responseMessage(StudentUtils.SUCCESS_MESSAGE)
                     .build();
         } catch (DataAccessException e) {
-            throw new RuntimeException("Failed to delete student: " + e.getMessage(), e);
+            //throw new RuntimeException("Failed to delete student: " + e.getMessage(), e);
+            return StudentResponse.builder()
+                    .responseCode(StudentUtils.ERROR)
+                    .responseMessage(StudentUtils.ERROR_MESSAGE)
+                    .build();
         }
     }
 
