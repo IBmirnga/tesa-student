@@ -76,6 +76,17 @@ public class StudentController {
         }
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<?> searchStudent(@RequestParam String query) {
+        try {
+            List<Student> students = studentService.searchStudent(query);
+            return ResponseEntity.ok(students);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error getting students by first name: " + e.getMessage());
+        }
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<StudentResponse> updateStudent(@PathVariable int id, @RequestBody StudentRequest request) {
 

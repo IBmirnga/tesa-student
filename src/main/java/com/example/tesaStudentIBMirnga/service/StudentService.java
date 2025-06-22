@@ -12,6 +12,7 @@ public interface StudentService {
     List<Student> getAllStudent();
     Student getStudentById(int id);
     List<Student> getStudentByFirstName(String firstName);
+    List<Student> searchStudent(String query);
     StudentResponse updateStudent(int id, StudentRequest request);
     StudentResponse deleteStudent(int id);
 
